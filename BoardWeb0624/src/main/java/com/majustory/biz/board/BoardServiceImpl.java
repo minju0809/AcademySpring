@@ -12,7 +12,7 @@ public class BoardServiceImpl implements BoardService {
 	BoardDao  dao;
 	
 	BoardServiceImpl(){
-	  System.out.println("===>BoardServiceImpl 생성자 ");	
+		System.out.println("===>BoardServiceImpl 생성자 ");	
 	}
 	@Override
 	public void insert(BoardVO vo) {
