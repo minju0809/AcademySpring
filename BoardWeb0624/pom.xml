@@ -35,6 +35,19 @@
 			<version>1.18.32</version>
 	 </dependency>
 	
+		<!-- Spring JDBC 추가 1 -->		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- Spring JDBC 추가 2 DBCP -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+	 
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

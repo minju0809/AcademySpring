@@ -10,12 +10,15 @@
 	<context:component-scan base-package="com.majustory.biz" />
 	
 	<bean id="log" class="com.majustory.biz.comm.LogAdvice"></bean>
-	<aop:config>
-		<aop:pointcut id="allPointcut" expression="execution(* com.majustory.biz.board..*ServiceImpl.*(..))" ></aop:pointcut>
-		<aop:aspect ref="log">
-			<aop:before pointcut-ref="allPointcut" method="beforeLog" />
-			<aop:after pointcut-ref="allPointcut" method="afterLog" />
-		</aop:aspect>
-	</aop:config>
+	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@//localhost:1521/xe"></property>
+		<property name="username" value="system"></property>
+		<property name="password" value="1234"></property>
+	</bean>
 	
 </beans>
