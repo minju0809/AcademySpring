@@ -7,53 +7,54 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.majustory.biz.comm.JDBCUtil;
 
 @Repository
-public class BoardDaoImpl extends JdbcDaoSupport implements BoardDao {
-	
-	private Connection conn = null;
-	private PreparedStatement pstmt = null;	
-	private ResultSet rs =null;
+public class BoardDaoImpl implements BoardDao {
 	
 	@Autowired
-	public void setSuperDataSource(DataSource dataSource) {
-		super.setDataSource(dataSource);
-	}
-
-	String INSERTSQL = "insert  into board (seq, title, writer, content) "
-			+ " values(idx.nextval, ?, ?, ?) "; 
+	private JdbcTemplate jdbcTemplate;
+	
+	private final String INSERTSQL = "insert  into board (seq, title, writer, content) "
+			+ " values(1004, ?, ?, ?) "; 
+	private final String SELECTSQL = "select *  from  board order by seq desc "; 
+	private final String EDITSQL = "select *  from  board where  seq = ? "; 
+	private final String DELETESQL = "delete from board where seq = ? ";
+	private final String TOTALCOUNTSQL = "select count(*) as totalcount from board";
 	
 	@Override
 	public void insert(BoardVO vo) {
-		System.out.println("==>  BoardDaoImpl insert(BoardVO vo) ");
-		
-		getJdbcTemplate().update(INSERTSQL, vo.getTitle(), vo.getWriter(), vo.getContent());
+		jdbcTemplate.update(INSERTSQL, vo.getTitle(), vo.getWriter(), vo.getContent());
 	}
 
 	@Override
 	public List<BoardVO> select(BoardVO vo) {
-		List<BoardVO> li = new ArrayList<>();
-		System.out.println("===> select(BoardVo vo)");
-		conn = JDBCUtil.getConnection();
-		String SQL ="select *  from  board "
-				+ " order  by seq  desc " ;
-		try {
-			pstmt = conn.prepareStatement(SQL);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				BoardVO m =new BoardVO();
-				m.setSeq(rs.getInt("seq"));
-				m.setTitle(rs.getString("title"));
-				m.setWriter(rs.getString("writer"));
-				li.add(m);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return li;
+		return jdbcTemplate.query(SELECTSQL, new BoardRowMapper());
+	}
+
+	@Override
+	public void delete(BoardVO vo) {
+		jdbcTemplate.update(DELETESQL, vo.getSeq());
+		
+	}
+
+	@Override
+	public BoardVO edit(BoardVO vo) {
+		Object[] args = { vo.getSeq()} ;
+		return jdbcTemplate.queryForObject(EDITSQL, new BoardRowMapper(), args );
+	}
+
+	@Override
+	public int totalCount() {
+		return jdbcTemplate.queryForObject(TOTALCOUNTSQL, new TotalCount());
 	}
 }
+
+
+
+

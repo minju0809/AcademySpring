@@ -22,12 +22,18 @@ public class BoardController {
 		System.out.println("==> BoardController ");
 	}
 
-	@RequestMapping(value = "/listBoard.do")
-	public String listBoard(BoardVO vo, Model model) {
+	@RequestMapping(value="/editBoard.do")
+	public String  editBoard(BoardVO vo, Model model   ) {
+		System.out.println("==> editBoard(BoardVO vo) ");
+		model.addAttribute("m", service.edit(vo));
+		return "board/edit";
+	}	
+	
+	@RequestMapping(value="/listBoard.do")
+	public String  listBoard(BoardVO vo, Model model   ) {
 		System.out.println("==> listBoard(BoardVO vo) ");
-
 		model.addAttribute("li", service.select(vo));
-
+		model.addAttribute("totalcount", service.totalCount());
 		return "board/list";
 	}
 
@@ -42,6 +48,13 @@ public class BoardController {
 		System.out.println("==> insertBoardOk.d0o " + vo);
 		service.insert(vo);
 		return "redirect:/listBoard.do";
+	}
+	
+	@RequestMapping(value="/deleteBoard.do")
+	public  String deleteBoard(BoardVO  vo) {
+		System.out.println("==> deleteBoard " + vo);
+		service.delete(vo);
+		return "redirect:/listBoard.do";	
 	}
 
 }

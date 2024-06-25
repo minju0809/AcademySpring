@@ -20,11 +20,11 @@ public class LogAdvice {
 	
 	@Before("allPointcut()")
 	public void beforeLog() {
-		System.out.println("beforeLog");
+//		System.out.println("beforeLog");
 	}
 	
 	@After("allPointcut()")
 	public void afterLog() {
-		System.out.println("afterLog");
+//		System.out.println("afterLog");
 	}
 }
