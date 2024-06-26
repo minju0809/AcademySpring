@@ -5,11 +5,13 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class TotalCount implements RowMapper<Integer>{
+public class TotalCount implements RowMapper<TotalCountVo> {
+
 	@Override
-	public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Integer totalcount = 0;
-		totalcount = rs.getInt("totalcount");
-		return totalcount;
+	public TotalCountVo mapRow(ResultSet rs, int rowNum) throws SQLException {
+		TotalCountVo m = new TotalCountVo();
+		m.setTotalCount(rs.getInt("totalcount"));
+		return m;
 	}
+
 }

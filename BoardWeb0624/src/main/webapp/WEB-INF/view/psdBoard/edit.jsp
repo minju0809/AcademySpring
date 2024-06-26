@@ -17,7 +17,9 @@
 제목   <input  type=text  name=title value="${m.title}"> <br>
 글쓴이  <input  type=text  name=writer value="${m.writer}"> <br>
 내용   <input  type=text  name=content value="${m.content}"> <br>
-<input  type=submit  value="저장하기" >
+이미지이름 <input  type=text  name=content value="${m.uploadFileStr}"> <br>
+사진 <img src="<%=path %>/psdBoard/files/${m.uploadFileStr}" />
+<input  type=submit  value="수정하기" >
 </form>
 
 

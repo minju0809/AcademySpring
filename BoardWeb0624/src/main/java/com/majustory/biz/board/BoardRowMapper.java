@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class BoardRowMapper implements RowMapper<BoardVO>{
+class BoardRowMapper implements RowMapper<BoardVO>{
+
 	@Override
 	public BoardVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		BoardVO	board = new BoardVO();
@@ -17,4 +18,5 @@ public class BoardRowMapper implements RowMapper<BoardVO>{
 		board.setCnt(rs.getInt("cnt"));
 		return board;
 	}
+	
 }
