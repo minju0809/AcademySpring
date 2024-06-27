@@ -1,11 +1,14 @@
 package com.majustory.view;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.majustory.biz.board.BoardService;
 import com.majustory.biz.board.BoardVO;
+import com.majustory.biz.psdBoard.PsdBoardVO;
 
 @Controller
 public class BoardController {
@@ -17,6 +20,7 @@ public class BoardController {
 		System.out.println("==> BoardController ");
 	}
 	
+		
 	@RequestMapping(value="/editBoard.do")
 	public String  editBoard(BoardVO vo, Model model   ) {
 		System.out.println("==> editBoard(BoardVO vo) ");
@@ -34,12 +38,14 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	
 	@RequestMapping(value="/formBoard.do")
 	public  String formBoard() {
 		System.out.println("==> formBoard.do ");
 		return "board/form";	
 	}
 	
+		
 	@RequestMapping(value="/insertBoardOk.do")
 	public  String insertBoardOk(BoardVO  vo) {
 		System.out.println("==> insertBoardOk.d0o " + vo);
@@ -53,5 +59,6 @@ public class BoardController {
 		service.delete(vo);
 		return "redirect:/listBoard.do";	
 	}
+		
 	
 }

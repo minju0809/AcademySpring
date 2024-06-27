@@ -23,13 +23,23 @@ public class PsdServiceImpl implements PsdService {
 	}
 
 	@Override
-	public PsdBoardVO edit(PsdBoardVO vo) {
-		return dao.edit(vo);
+	public void delete(PsdBoardVO vo) {
+		dao.delete(vo);		
 	}
 
 	@Override
-	public void delete(PsdBoardVO vo) {
-		dao.delete(vo);
+	public PsdBoardVO edit(PsdBoardVO vo) {
+	   return dao.edit(vo);
+	}
+
+	@Override
+	public void UPDATEFILEINSQL(PsdBoardVO vo) {
+		dao.UPDATEFILEINSQL(vo);		
+	}
+
+	@Override
+	public void UPDATEFILENOTSQL(PsdBoardVO vo) {
+		dao.UPDATEFILENOTSQL(vo);		
 	}
 
 }
